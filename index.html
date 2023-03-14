@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload file</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#uploadForm").submit(function () {
+                $("#status").empty().text("File is uploading...");
+                $(this).ajaxSubmit({
+                    error: function(xhr){
+                    status('Error:' + xhr.status);
+                    },
+                    success: function(response){
+                        console.log(response)
+                        $("#status").empty().text(response);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Upload file pro max</h1>
+    <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
+        <input type="file" name="myfile"/>
+        <br/>
+        <br/>
+        <input type="submit" value="Upload file Image" name="submit">
+        <br/>
+        <br/>
+        <span id="status"></span>
+
+    </form>
+</body>
+</html>
